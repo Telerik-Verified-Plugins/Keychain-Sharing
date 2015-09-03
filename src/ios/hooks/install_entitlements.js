@@ -51,7 +51,7 @@ var xcode = require('xcode'),
     //var sourceFile = 'plugins/cordova-plugin-keychainsharing/src/ios/resources/KeychainSharing.entitlements';
     var sourceFile = path.join(context.opts.plugin.pluginInfo.dir, 'src/ios/resources/KeychainSharing.entitlements');
     fs.readFile(sourceFile, 'utf8', function (err, data) {
-      data = data.replace(/__SHARED_BUNDLE_ID__/g, sharedBundleID);
+      data = data.replace(/__KEYCHAIN_ACCESS_GROUP__/g, sharedBundleID);
       console.log(data);
 
       //fs.writeFileSync('platforms/ios/' + projName + '/Resources/' + projName + '.entitlements', data);
