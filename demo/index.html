@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <title>Keychain Sharing</title>
+</head>
+<body>
+<div class="app">
+  <h1>Keychain Sharing A</h1>
+
+  <div id="deviceready" class="blink">
+    <p class="event listening">Connecting to Device</p>
+
+    <p class="event received">Device is Ready</p>
+    <button onclick="set('a')">set A</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick="set('b')">set B</button>
+    <br/><br/>
+    <button onclick="get()">get</button>
+    <br/><br/>
+    <button onclick="del()">remove</button>
+    <br/>
+  </div>
+</div>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+  window.onerror = function (err, file, line) {
+    alert(err + ", " + line)
+  };
+
+  var key = "myKey";
+  var service = "myService";
+
+  function onSuccess(msg) {
+    alert("OK: " + msg);
+  }
+
+  function onError(msg) {
+    alert("NOK: " + msg);
+  }
+
+  function set(val) {
+    KeychainSharing.set({key: key, val: val, service:service}, onSuccess, onError);
+  }
+
+  function get() {
+    KeychainSharing.get({key: key, service:service}, onSuccess, onError);
+  }
+
+  function del() {
+    KeychainSharing.remove({key: key, service:service}, onSuccess, onError);
+  }
+</script>
+</body>
+</html>

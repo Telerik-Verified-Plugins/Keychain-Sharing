@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<plugin
+    id="cordova-plugin-keychainsharing"
+    version="0.3.0"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0">
+
+  <name>Keychain Sharing</name>
+
+  <author>Eddy Verbruggen / Telerik</author>
+
+  <description>
+    Cordova plugin to add the Keychain Sharing entitlement.
+    And a few methods for interacting with the Keychain.
+  </description>
+
+  <keywords>Keychain, Keychain Sharing, Keychain Sharing</keywords>
+
+  <license>MIT</license>
+
+  <engines>
+    <engine name="cordova" version=">=3.0.0"/>
+  </engines>
+
+  <js-module name="KeychainSharing" src="www/KeychainSharing.js">
+    <clobbers target="KeychainSharing"/>
+  </js-module>
+
+  <preference name="SHARED_BUNDLE_ID" />
+
+  <platform name="ios">
+    <config-file parent="/*" target="config.xml">
+      <feature name="KeychainSharing">
+        <param name="ios-package" value="KeychainSharing"/>
+      </feature>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="KeychainSharingBundleID">
+      <string>$SHARED_BUNDLE_ID</string>
+    </config-file>
+
+    <header-file src="src/ios/lib/UICKeyChainStore.h"/>
+    <source-file src="src/ios/lib/UICKeyChainStore.m"/>
+
+    <header-file src="src/ios/KeychainSharing.h"/>
+    <source-file src="src/ios/KeychainSharing.m"/>
+
+    <framework src="Security.framework"/>
+
+    <hook type="after_plugin_install" src="src/ios/hooks/prerequisites.js"/>
+    <hook type="after_plugin_install" src="src/ios/hooks/install_entitlements.js"/>
+  </platform>
+
+</plugin>
