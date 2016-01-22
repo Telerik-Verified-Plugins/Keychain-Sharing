@@ -7,7 +7,7 @@ var xcode = require('xcode'),
     plist = require('plist'),
     util = require('util');
 
-  module.exports = function (context) {
+module.exports = function (context) {
   var Q = context.requireCordovaModule('q');
   var deferral = new Q.defer();
 
