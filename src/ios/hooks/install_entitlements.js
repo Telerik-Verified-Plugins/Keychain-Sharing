@@ -41,7 +41,7 @@ module.exports = function (context) {
       throw new Error("Could not find an .xcodeproj folder in: " + iosFolder);
     }
 
-    var destFile = path.join(iosFolder, projName, projName + '.entitlements');
+    var destFile = path.join(iosFolder, projName, 'Resources', projName + '.entitlements');
     if (fs.existsSync(destFile)) {
       console.error("File exists, not doing anything: " + destFile);
     } else {
@@ -78,7 +78,7 @@ module.exports = function (context) {
         for (var key in configGroups) {
           var config = configGroups[key];
           if (config.buildSettings !== undefined) {
-            config.buildSettings.CODE_SIGN_ENTITLEMENTS = '"' + projName + '/' + projName + '.entitlements"';
+            config.buildSettings.CODE_SIGN_ENTITLEMENTS = '"' + projName + '/Resources/' + projName + '.entitlements"';
             //console.log("Adding iOS Keychain Sharing entitlements to project '" + projName + "'");
           }
         }
