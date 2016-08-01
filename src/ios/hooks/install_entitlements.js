@@ -15,7 +15,8 @@ module.exports = function (context) {
     throw new Error('This plugin expects the ios platform to exist.');
   }
 
-  var iosFolder = context.opts.cordova.project ? context.opts.cordova.project.root : path.join(context.opts.projectRoot, 'platforms/ios/');
+  var iosPlatform = path.join(context.opts.projectRoot, 'platforms/ios/');
+  var iosFolder = fs.existsSync(iosPlatform) ? iosPlatform : context.opts.projectRoot;
   console.log("iosFolder: " + iosFolder);
 
   fs.readdir(iosFolder, function (err, data) {
@@ -40,7 +41,7 @@ module.exports = function (context) {
       throw new Error("Could not find an .xcodeproj folder in: " + iosFolder);
     }
 
-    var destFile = path.join(iosFolder, projName, 'Resources', projName + '.entitlements');
+    var destFile = path.join(iosFolder, projName, projName + '.entitlements');
     if (fs.existsSync(destFile)) {
       console.error("File exists, not doing anything: " + destFile);
     } else {
@@ -77,7 +78,7 @@ module.exports = function (context) {
         for (var key in configGroups) {
           var config = configGroups[key];
           if (config.buildSettings !== undefined) {
-            config.buildSettings.CODE_SIGN_ENTITLEMENTS = '"' + projName + '/Resources/' + projName + '.entitlements"';
+            config.buildSettings.CODE_SIGN_ENTITLEMENTS = '"' + projName + '/' + projName + '.entitlements"';
             //console.log("Adding iOS Keychain Sharing entitlements to project '" + projName + "'");
           }
         }
